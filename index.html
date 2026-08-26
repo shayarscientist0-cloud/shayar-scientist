@@ -1,1 +1,265 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Shayar Scientist</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+margin:0;
+background:#080808;
+color:#eee;
+font-family:Georgia,"Noto Serif Devanagari",serif;
+}
+
+button,input,textarea,select{
+font:inherit;
+}
+
+button{
+cursor:pointer;
+}
+
+:root{
+--gold:#d6ad58;
+--cream:#f4eee3;
+--dark:#080808;
+--card:#151515;
+--muted:#aaa;
+}
+
+nav{
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(8,8,8,.94);
+backdrop-filter:blur(12px);
+border-bottom:1px solid #292929;
+}
+
+.nav{
+max-width:1150px;
+margin:auto;
+padding:16px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:24px;
+color:var(--cream);
+}
+
+.logo span{
+color:var(--gold);
+}
+
+.nav button{
+background:transparent;
+border:1px solid #705c31;
+color:var(--gold);
+border-radius:25px;
+padding:8px 17px;
+}
+
+.hero{
+position:relative;
+height:88vh;
+min-height:600px;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+.hero video{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:0;
+}
+
+.hero-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(
+rgba(0,0,0,.35),
+rgba(0,0,0,.88)
+);
+z-index:1;
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+padding:20px;
+}
+
+.hero-small{
+color:var(--gold);
+letter-spacing:5px;
+font-size:12px;
+}
+
+.hero h1{
+font-size:clamp(48px,10vw,100px);
+font-weight:400;
+line-height:1.05;
+margin:20px 0;
+}
+
+.hero p{
+color:#ddd;
+font-size:18px;
+max-width:700px;
+margin:auto;
+}
+
+.hero-line{
+width:90px;
+height:1px;
+background:var(--gold);
+margin:28px auto;
+}
+
+section{
+max-width:1150px;
+margin:auto;
+padding:80px 20px;
+}
+
+.kicker{
+color:var(--gold);
+font-size:12px;
+letter-spacing:3px;
+}
+
+h2{
+font-size:40px;
+font-weight:400;
+margin:10px 0 30px;
+}
+
+.categories{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-bottom:35px;
+}
+
+.category{
+background:#151515;
+border:1px solid #333;
+color:#aaa;
+border-radius:25px;
+padding:9px 17px;
+}
+
+.category.active,
+.category:hover{
+background:var(--gold);
+color:#111;
+}
+
+.date-group{
+margin-bottom:55px;
+}
+
+.date-heading{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:20px;
+}
+
+.date-heading span{
+color:var(--gold);
+font-size:14px;
+}
+
+.date-heading h3{
+font-size:22px;
+font-weight:400;
+margin:0;
+}
+
+.posts{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.post{
+background:var(--card);
+border:1px solid #292929;
+overflow:hidden;
+transition:.25s;
+}
+
+.post:hover{
+transform:translateY(-4px);
+border-color:#6c5830;
+}
+
+.post-image,
+.post-video{
+width:100%;
+display:block;
+}
+
+.post-image{
+max-height:280px;
+object-fit:cover;
+}
+
+.post-video{
+max-height:300px;
+background:#000;
+}
+
+.post-body{
+padding:23px;
+}
+
+.post-category{
+color:var(--gold);
+font-size:11px;
+letter-spacing:2px;
+}
+
+.post h4{
+font-size:25px;
+font-weight:400;
+margin:10px 0 15px;
+}
+
+.post-content{
+white-space:pre-line;
+color:#bbb;
+line-height:1.9;
+}
+
+.post-time{
+margin-top:18px;
+color:#666;
+font-size:12px;
+}
+
+.about{
+border-top:1px solid #222;
+}
+
+.about-text{
+max-width:
