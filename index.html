@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Shayar Scientist | शब्दों की दुनिया</title>
+
+  <meta name="description"
+        content="Shayar Scientist — शायरी, ग़ज़ल, गीत और नज़्म की एक डिजिटल दुनिया।">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root {
+      --background: #090807;
+      --surface: #12100e;
+      --surface-light: #191613;
+
+      --text: #f3eee5;
+      --text-soft: #d2cbc1;
+      --muted: #938c83;
+
+      --gold: #c8a66a;
+      --gold-soft: rgba(200,166,106,0.25);
+
+      --border: rgba(243,238,229,0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--background);
+      color: var(--text);
+      font-family: "Noto Serif Devanagari", serif;
+      line-height: 1.8;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* =========================
+       INTRO SCREEN
+    ========================== */
+
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+
+      background: #050505;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      overflow: hidden;
+
+      transition:
+        opacity 1s ease,
+        visibility 1s ease;
+    }
+
+    .intro.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Video background */
+
+    .intro-video {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      opacity: 0.75;
+      background: #050505;
+    }
+
+    /* Dark layer */
+
+    .intro-overlay {
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.25),
+          rgba(0,0,0,0.82)
+        );
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+
+      width: min(850px, 90%);
+
+      text-align: center;
+    }
+
+    .small-title {
+      font-family: Inter, sans-serif;
+
+      font-size: 11px;
+
+      letter-spacing: 5px;
+
+      color: var(--gold);
+
+      text-transform: uppercase;
+    }
+
+    .intro-title {
+      font-family: "DM Serif Display", serif;
+
+      font-size: clamp(52px, 10vw, 110px);
+
+      font-weight: 400;
+
+      line-height: 1;
+
+      margin: 25px 0;
+    }
+
+    .intro-text {
+      font-size: clamp(17px, 2.5vw, 24px);
+
+      color: var(--text-soft);
+
+      margin-bottom: 35px;
+    }
+
+    .enter-button {
+      background: transparent;
+
+      border: 1px solid var(--gold);
+
+      color: var(--text);
+
+      padding: 14px 28px;
+
+      cursor: pointer;
+
+      font-family: Inter, sans-serif;
+
+      font-size: 12px;
+
+      letter-spacing: 1.5px;
+
+      transition: 0.3s ease;
+    }
+
+    .enter-button:hover {
+      background: var(--gold);
+
+      color: #090807;
+    }
+
+    .skip-button {
+      display: block;
+
+      margin: 20px auto 0;
+
+      background: transparent;
+
+      border: none;
+
+      color: #777;
+
+      cursor: pointer;
+
+      font-family: Inter, sans-serif;
+
+      font-size: 11px;
+    }
+
+    /* =========================
+       NAVIGATION
+    ========================== */
+
+    nav {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+      right: 0;
+
+      z-index: 100;
+
+      padding: 22px 6vw;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(9,8,7,0.95),
+          transparent
+        );
+    }
+
+    .logo {
+      font-family: "DM Serif Display", serif;
+
+      font-size: 26px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+
+      gap: 30px;
+
+      font-family: Inter, sans-serif;
+
+      font-size: 12px;
+
+      color: var(--text-soft);
+    }
+
+    .nav-links a {
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      min-height: 100vh;
+
+      display: flex;
+
+      align-items: flex-end;
+
+      padding: 150px 7vw 90px;
+
+      position: relative;
+
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 75% 30%,
+          rgba(200,166,106,0.13),
+          transparent 32%
+        ),
+        linear-gradient(
+          to bottom,
+          #0b0a09,
+          #090807
+        );
+    }
+
+    .hero::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          transparent 3px,
+          rgba(255,255,255,0.012) 4px
+        );
+    }
+
+    .hero-content {
+      position: relative;
+
+      z-index: 2;
+
+      max-width: 900px;
+    }
+
+    .hero-date {
+      font-family: Inter, sans-serif;
+
+      font-size: 11px;
+
+      letter-spacing: 2px;
+
+      color: var(--gold);
+
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: clamp(40px, 6vw, 78px);
+
+      font-weight: 500;
+
+      line-height: 1.3;
+
+      margin: 20px 0;
+    }
+
+    .hero-title span {
+      color: var(--text-soft);
+    }
+
+    .read-button {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin-top: 20px;
+
+      color: var(--gold);
+
+      font-family: Inter, sans-serif;
+
+      font-size: 12px;
+
+      letter-spacing: 1px;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================== */
+
+    section {
+      padding: 100px 7vw;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: flex-end;
+
+      gap: 20px;
+
+      margin-bottom: 45px;
+    }
+
+    .section-title {
+      font-size: 38px;
+
+      font-weight: 500;
+    }
+
+    .section-label {
+      font-family: Inter, sans-serif;
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      color: var(--muted);
+
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       TODAY'S POETRY
+    ========================== */
+
+    .featured {
+      display: grid;
+
+      grid-template-columns: 1.1fr 0.9fr;
+
+      gap: 60px;
+    }
+
+    .poetry-category {
+      font-family: Inter, sans-serif;
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      color: var(--gold);
+
+      text-transform: uppercase;
+    }
+
+    .poetry-title {
+      font-size: 34px;
+
+      font-weight: 500;
+
+      margin: 15px 0 25px;
+    }
+
+    .poetry-text {
+      white-space: pre-line;
+
+      color: var(--text-soft);
+
+      font-size: 20px;
+
+      line-height: 2.2;
+    }
+
+    .poetry-card {
+      min-height: 370px;
+
+      padding: 45px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: flex-end;
+
+      border: 1px solid var(--border);
+
+      background:
+        linear-gradient(
+          145deg,
+          #171411,
+          #0d0c0b
+        );
+    }
+
+    .quote-mark {
+      font-family: "DM Serif Display", serif;
+
+      color: var(--gold);
+
+      font-size: 100px;
+
+      line-height: 0.8;
+
+      opacity: 0.5;
+
+      margin-bottom: 20px;
+    }
+
+    .poetry-card-text {
+      font-size: 19px;
+
+      color: var(--text-soft);
+    }
+
+    /* =========================
+       CATEGORIES
+    ========================== */
+
+    .categories {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, 1fr);
+
+      gap: 15px;
+    }
+
+    .category {
+      padding: 32px 25px;
+
+      border: 1px solid var(--border);
+
+      transition:
+        transform 0.3s ease,
+        border-color 0.3s ease;
+
+      background: rgba(255,255,255,0.01);
+    }
+
+    .category:hover {
+      transform: translateY(-5px);
+
+      border-color: var(--gold-soft);
+    }
+
+    .category-name {
+      font-size: 24px;
+
+      font-weight: 500;
+    }
+
+    .category-subtitle {
+      display: block;
+
+      margin-top: 7px;
+
+      font-family: Inter, sans-serif;
+
+      font-size: 10px;
+
+      color: var(--muted);
+
+      letter-spacing: 2px;
+    }
+
+    /* =========================
+       LATEST WRITINGS
+    ========================== */
+
+    .writings {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 20px;
+    }
+
+    .writing {
+      padding: 30px 0;
+
+      border-top: 1px solid var(--border);
+
+      transition: 0.3s ease;
+    }
+
+    .writing-date {
+      font-family: Inter, sans-serif;
+
+      font-size: 10px;
+
+      color: var(--gold);
+
+      letter-spacing: 1.5px;
+    }
+
+    .writing-title {
+      font-size: 23px;
+
+      font-weight: 500;
+
+      margin: 12px 0 8px;
+    }
+
+    .writing-description {
+      color: var(--muted);
+
+      font-size: 15px;
+    }
+
+    /* =========================
+       ABOUT
+    ========================== */
+
+    .about {
+      max-width: 850px;
+    }
+
+    .about-small {
+      font-family: Inter, sans-serif;
+
+      color: var(--gold);
+
+      font-size: 10px;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
+    .about-title {
+      font-size: 45px;
+
+      font-weight: 500;
+
+      margin: 18px 0;
+    }
+
+    .about-text {
+      font-size: 19px;
+
+      color: var(--text-soft);
+
+      line-height: 2;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      border-top: 1px solid var(--border);
+
+      padding: 50px 7vw;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+      color: var(--muted);
+
+      font-family: Inter, sans-serif;
+
+      font-size: 11px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 800px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      nav {
+        padding: 20px 6vw;
+      }
+
+      .hero {
+        min-height: 90vh;
+
+        padding:
+          140px 7vw
+          70px;
+      }
+
+      section {
+        padding:
+          70px 7vw;
+      }
+
+      .section-header {
+        display: block;
+      }
+
+      .section-label {
+        display: block;
+
+        margin-top: 8px;
+      }
+
+      .featured {
+        grid-template-columns: 1fr;
+
+        gap: 40px;
+      }
+
+      .categories {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .writings {
+        grid-template-columns: 1fr;
+      }
+
+      .poetry-text {
+        font-size: 18px;
+      }
+
+      .poetry-card {
+        min-height: 270px;
+
+        padding: 30px;
+      }
+
+      .about-title {
+        font-size: 36px;
+      }
+
+      footer {
+        display: block;
+      }
+
+      footer div + div {
+        margin-top: 10px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- =================================
+       INTRO / VIDEO
+  ================================== -->
+
+  <div class="intro" id="intro">
+
+    <!--
+      जब तुम्हारी असली video तैयार हो जाए,
+      उसका नाम "intro.mp4" रखकर project में डालेंगे।
+    -->
+
+    <video
+      class="intro-video"
+      id="introVideo"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto">
+
+      <source src="intro.mp4" type="video/mp4">
+
+    </video>
+
+    <div class="intro-overlay"></div>
+
+    <div class="intro-content">
+
+      <div class="small-title">
+        A Digital World Of Words
+      </div>
+
+      <h1 class="intro-title">
+        Shayar Scientist
+      </h1>
+
+      <p class="intro-text">
+        “कुछ अल्फ़ाज़ लिखे हैं आज…<br>
+        शायद इनमें आपका भी कोई हिस्सा हो।”
+      </p>
+
+      <button
+        class="enter-button"
+        onclick="enterWorld()">
+
+        ENTER THE WORLD&nbsp; →
+
+      </button>
+
+      <button
+        class="skip-button"
+        onclick="enterWorld()">
+
+        Skip Intro
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =================================
+       NAVIGATION
+  ================================== -->
+
+  <nav>
+
+    <a href="#" class="logo">
+      Shayar <span>Scientist</span>
+    </a>
+
+    <div class="nav-links">
+
+      <a href="#today">
+        आज की रचना
+      </a>
+
+      <a href="#writings">
+        रचनाएँ
+      </a>
+
+      <a href="#about">
+        मेरे बारे में
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =================================
+       MAIN WEBSITE
+  ================================== -->
+
+  <main>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="hero-date">
+          26 अगस्त 2026 · आज की रचना
+        </div>
+
+        <h2 class="hero-title">
+
+          कुछ बातें कही नहीं जातीं…
+
+          <br>
+
+          <span>
+            बस उम्र भर महसूस होती हैं।
+          </span>
+
+        </h2>
+
+        <a
+          href="#today"
+          class="read-button">
+
+          आज की रचना पढ़ें →
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- TODAY'S POETRY -->
+
+    <section id="today">
+
+      <div class="section-header">
+
+        <h3 class="section-title">
+          आज कुछ लिखा है…
+        </h3>
+
+        <span class="section-label">
+          Today's Writing
+        </span>
+
+      </div>
+
+
+      <div class="featured">
+
+
+        <article>
+
+          <div class="poetry-category">
+            शायरी
+          </div>
+
+          <h4 class="poetry-title">
+            अधूरी सी बात
+          </h4>
+
+          <div class="poetry-text">
+
+कभी-कभी ख़ामोशी भी
+बहुत कुछ कह जाती है,
+
+जो बात लफ़्ज़ों से नहीं होती,
+वो आँखों से हो जाती है।
+
+कुछ रिश्ते नाम नहीं माँगते,
+बस एक एहसास काफ़ी होता है,
+
+और कुछ लोग दूर होकर भी
+दिल के सबसे पास होते हैं।
+
+          </div>
+
+        </article>
+
+
+        <aside class="poetry-card">
+
+          <div class="quote-mark">
+            “
+          </div>
+
+          <div class="poetry-card-text">
+
+            हर दिन एक नया अल्फ़ाज़।<br>
+            हर अल्फ़ाज़ में एक नई कहानी।
+
+          </div>
+
+        </aside>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- CATEGORIES -->
+
+    <section>
+
+      <div class="section-header">
+
+        <h3 class="section-title">
+          मेरी दुनिया
+        </h3>
+
+        <span class="section-label">
+          Categories
+        </span>
+
+      </div>
+
+
+      <div class="categories">
+
+        <a href="#" class="category">
+
+          <span class="category-name">
+            शायरी
+          </span>
+
+          <span class="category-subtitle">
+            ALFAAZ
+          </span>
+
+        </a>
+
+
+        <a href="#" class="category">
+
+          <span class="category-name">
+            ग़ज़ल
+          </span>
+
+          <span class="category-subtitle">
+            GHAZAL
+          </span>
+
+        </a>
+
+
+        <a href="#" class="category">
+
+          <span class="category-name">
+            गीत
+          </span>
+
+          <span class="category-subtitle">
+            GEET
+          </span>
+
+        </a>
+
+
+        <a href="#" class="category">
+
+          <span class="category-name">
+            नज़्म
+          </span>
+
+          <span class="category-subtitle">
+            NAZM
+          </span>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- LATEST WRITINGS -->
+
+    <section id="writings">
+
+      <div class="section-header">
+
+        <h3 class="section-title">
+          हाल की रचनाएँ
+        </h3>
+
+        <span class="section-label">
+          Latest Writings
+        </span>
+
+      </div>
+
+
+      <div class="writings">
+
+
+        <article class="writing">
+
+          <div class="writing-date">
+            25 AUG 2026 · शायरी
+          </div>
+
+          <h4 class="writing-title">
+            वो शाम
+          </h4>
+
+          <p class="writing-description">
+            कुछ यादें शाम की तरह होती हैं…
+          </p>
+
+        </article>
+
+
+        <article class="writing">
+
+          <div class="writing-date">
+            24 AUG 2026 · ग़ज़ल
+          </div>
+
+          <h4 class="writing-title">
+            कुछ सवाल
+          </h4>
+
+          <p class="writing-description">
+            जिनके जवाब शायद ख़ामोशी में हैं।
+          </p>
+
+        </article>
+
+
+        <article class="writing">
+
+          <div class="writing-date">
+            23 AUG 2026 · नज़्म
+          </div>
+
+          <h4 class="writing-title">
+            तुम्हारे बाद
+          </h4>
+
+          <p class="writing-description">
+            एक कहानी जो अभी पूरी नहीं हुई।
+          </p>
+
+        </article>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+      <div class="about">
+
+        <div class="about-small">
+          The Poet Behind The Words
+        </div>
+
+        <h3 class="about-title">
+          मैं लिखता क्यों हूँ?
+        </h3>
+
+        <p class="about-text">
+
+          क्योंकि कुछ एहसास कहे नहीं जाते।
+          उन्हें काग़ज़ चाहिए, कुछ ख़ामोशी चाहिए
+          और कभी-कभी बस एक ऐसा इंसान चाहिए
+          जो पढ़कर उन्हें अपना समझ सके।
+
+        </p>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- =================================
+       FOOTER
+  ================================== -->
+
+  <footer>
+
+    <div>
+      © 2026 Shayar Scientist
+    </div>
+
+    <div>
+      शब्दों की दुनिया · रोज़ एक नई रचना
+    </div>
+
+  </footer>
+
+
+  <!-- =================================
+       JAVASCRIPT
+  ================================== -->
+
+  <script>
+
+    function enterWorld() {
+
+      const intro =
+        document.getElementById("intro");
+
+      intro.classList.add("hidden");
+
+      sessionStorage.setItem(
+        "shayarEntered",
+        "true"
+      );
+
+    }
+
+
+    window.addEventListener(
+      "load",
+      function() {
+
+        const alreadyEntered =
+          sessionStorage.getItem(
+            "shayarEntered"
+          );
+
+        if (alreadyEntered === "true") {
+
+          document
+            .getElementById("intro")
+            .classList
+            .add("hidden");
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+        </html>
